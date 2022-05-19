@@ -11,7 +11,9 @@ function responseCallBack(response) {
 
 function resultCallBack(result) {
     console.log(result);
-    displayStudents(result);
+    // displayStudents(result);
+    const array = result.map(obj => Student.fromObj(obj));
+    displayStudents(array)
 }
 
 function manageError(error) {
@@ -19,14 +21,23 @@ function manageError(error) {
 }
 
 function displayStudents(arrayOfStudents) {
-    const arrayContainer = document.createElement('div')
+    const arrayContainer = document.createElement('div');
+    arrayContainer.classList.add('conteiner')
     for (let i = 0; i < arrayOfStudents.length; i++) {
         const student = arrayOfStudents[i];
         const studentsContainer = document.createElement('div');
-        const span = document.createElement('span');
-        const firstName = document.createTextNode(student.name + ' ' + student.surname);
+        studentsContainer.classList.add('student-card');
 
-        span.appendChild(firstName);
+        const avatar = document.createElement("img");
+        avatar.classList.add('avatar-student');
+        avatar.src = student.avatarUrl;
+        studentsContainer.appendChild(avatar);
+
+        const span = document.createElement('span');
+        span.classList.add('info-students');
+        const text = document.createTextNode('name '  + student.name + '\r\n' +'cognome' + ' ' + student.surname + student.getDayToBirthday());
+
+        span.appendChild(text);
         studentsContainer.appendChild(span);
         arrayContainer.appendChild(studentsContainer);
     } 

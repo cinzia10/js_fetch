@@ -1,0 +1,18 @@
+.conteiner{
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.student-card{
+    border: solid black 1px;
+    margin: 20px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.avatar-student{
+    height: 60px;
+}
+
