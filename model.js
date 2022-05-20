@@ -1,10 +1,10 @@
 class Student {
-    constructor(id, name, surname, dob, avatarUrl) {
+    constructor(id, name, surname, dob, avatar) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.dob = dob;
-        this.avatarUrl = avatarUrl;
+        this.avatar = avatar;
     }
 
     get dateOfBirth(){
@@ -24,7 +24,7 @@ class Student {
         const bday = this.dateOfBirth.getTime();
         const diff = today - bday;
         const days = Math.floor(diff/1000/60/60/24);
-        const daysToBday = days%365;
+        const daysToBday = 365 - (days%365);
         return daysToBday;
     }
 }

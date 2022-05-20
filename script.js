@@ -1,40 +1,56 @@
 const responseCallBack = (response) => response.json();
 
-const catchError = (error) => console.log(error);
+const createAvatarImg = (src) => {
+    const avatar = document.createElement("img");
+    avatar.classList.add('avatar-student');
+    avatar.src = src;
+    return avatar
+}
+
+const createTextSpan = (text) => {
+    const span = document.createElement('span');
+    span.classList.add('info-students');
+    span.appendChild(document.createTextNode(text))
+    return span;
+}
+
+const createStudentCard = (student) => {
+    const studentCard = document.createElement('div');
+    studentCard.classList.add('student-card')
+    studentCard.appendChild(createTextSpan(student.dob + ' ' + ' ' + ' ' + student.getDayToBirthday()));
+    studentCard.appendChild(createAvatarImg(student.avatar));
+    return studentCard;
+}
+
+const createArrayOfStudentCard = (arrayOfStudent) => arrayOfStudent.map(student => createStudentCard(student))
+
+const displayStudents = (arrayOfStudents) => {
+    const arrayContainer = document.createElement('div');
+    arrayContainer.classList.add('container')
+    const arrayOfCard = createArrayOfStudentCard(arrayOfStudents);
+    arrayContainer.append(...arrayOfCard);
+    document.body.appendChild(arrayContainer);
+}
 
 const convertResultInArrayOfStudents = (result) => result.map(obj => Student.fromObj(obj));
 
 const resultCallBack = (result) => displayStudents(convertResultInArrayOfStudents(result));
 
-fetch('https://62860d21f0e8f0bb7c0f434d.mockapi.io/students')
-    .then(responseCallBack)
-    .then(resultCallBack)
-    .catch(catchError);
+const catchError = (error) => console.log(error);
 
+const initApp = () => fetch('https://62860d21f0e8f0bb7c0f434d.mockapi.io/students')
+                      .then(responseCallBack)
+                      .then(resultCallBack)
+                      .catch(catchError);
 
-    function displayStudents(arrayOfStudents) {
-        const arrayContainer = document.createElement('div');
-        arrayContainer.classList.add('conteiner')
-        for (let i = 0; i < arrayOfStudents.length; i++) {
-            const student = arrayOfStudents[i];
-            const studentsContainer = document.createElement('div');
-            studentsContainer.classList.add('student-card');
-    
-            const avatar = document.createElement("img");
-            avatar.classList.add('avatar-student');
-            avatar.src = student.avatarUrl;
-            studentsContainer.appendChild(avatar);
-    
-            const span = document.createElement('span');
-            span.classList.add('info-students');
-            const text = document.createTextNode('name '  + student.name + '\r\n' +'cognome' + ' ' + student.surname + student.getDayToBirthday());
-    
-            span.appendChild(text);
-            studentsContainer.appendChild(span);
-            arrayContainer.appendChild(studentsContainer);
-        } 
-        document.body.appendChild(arrayContainer);
-    }
+initApp();
+
+    //     const avatar = document.createElement("img");
+    //     avatar.classList.add('avatar-student');
+    //     avatar.src = student.avatar;
+    //     studentsContainer.appendChild(avatar);
+   
+
 
 // function responseCallBack(response) {
 //     console.log(response);

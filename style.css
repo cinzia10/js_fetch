@@ -1,4 +1,4 @@
-.conteiner{
+.container{
     margin: 20px;
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -8,11 +8,11 @@
     border: solid black 1px;
     margin: 20px;
     padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
 }
 
 .avatar-student{
+    float: left;
+    margin-right: 20px;
     height: 60px;
 }
 
