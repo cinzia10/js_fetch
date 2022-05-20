@@ -14,17 +14,42 @@ const createTextSpan = (text) => {
     return span;
 }
 
+const deleteCallback = () => {
+    initApp();
+}
+
+const deleteStudent = (id) => {
+    const deleteUrl = 'https://62860d21f0e8f0bb7c0f434d.mockapi.io/students/' + id;
+    const fetchConf = {
+        method: 'delete'
+    }
+    fetch(deleteUrl, fetchConf)
+    .then(responseCallBack)
+    .then(deleteCallback)
+}
+
+
+const createButton = (id) =>{
+    const button = document.createElement('button');
+    button.onclick = () => deleteCallback(id);
+    const node = document.createTextNode('visualizza');
+    button.appendChild(node);
+    return button
+}
+
 const createStudentCard = (student) => {
     const studentCard = document.createElement('div');
     studentCard.classList.add('student-card')
     studentCard.appendChild(createTextSpan(student.dob + ' ' + ' ' + ' ' + student.getDayToBirthday()));
     studentCard.appendChild(createAvatarImg(student.avatar));
+    studentCard.appendChild(createButton(student.id));
     return studentCard;
 }
 
 const createArrayOfStudentCard = (arrayOfStudent) => arrayOfStudent.map(student => createStudentCard(student))
 
 const displayStudents = (arrayOfStudents) => {
+    document.body.innerHTML = ''
     const arrayContainer = document.createElement('div');
     arrayContainer.classList.add('container')
     const arrayOfCard = createArrayOfStudentCard(arrayOfStudents);
